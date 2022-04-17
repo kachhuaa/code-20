@@ -1,0 +1,19 @@
+{
+  "name": "code-20",
+  "version": "1.0.0",
+  "description": "C++ Code Editor for CP.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kachhuaa/code-20.git"
+  },
+  "author": "Debabhiram Manik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kachhuaa/code-20/issues"
+  },
+  "homepage": "https://github.com/kachhuaa/code-20#readme"
+}
