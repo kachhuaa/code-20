@@ -1,0 +1,117 @@
+body,html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  /* overflow: hidden; */
+  background-color: #2D2D2A;
+}
+
+.content {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%
+}
+
+/* -----------------NAVBAR-------------------- */
+.dropdown-toggle::after {
+  display: none;
+}
+
+.nav-item {
+  font-size: 1rem;
+}
+
+.navbar {
+  padding: 0;
+  flex: 0 1 auto;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.dropdown-toggle {
+  padding: 0.2rem;
+}
+
+.dropdown-item {
+  color: white;
+  font-size: 0.8rem;
+}
+
+.dropdown-menu {
+  /* background-color: #212529; */
+  /* background-color: #2B2D42; */
+  background-color: #2D2D2A;
+}
+
+.navbar-nav {
+  margin-block-end: 0!important;
+}
+
+.dropdown-menu {
+  margin-block-start: 0!important;
+  border: 0;
+  border-radius: 0;
+}
+
+/* ------------------EDITOR--------------- */
+.editor-window {
+  display: inline-block;
+  height: 100vh;
+  width: 100vw;
+}
+
+.editor {
+  /* height: 100%;
+  width: 100%; */
+  resize: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+}
+
+.editor:focus {
+  border: 0;
+  outline: 0;
+}
+
+.editor:focus-visible {
+  outline: 0;
+  border: 0;
+}
+
+.CodeMirror {
+  /* width: 100%;
+  height: 100%; */
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  resize: none;
+  flex: 1 1 auto;
+}
+
+.commands {
+  flex: 0 1 auto;
+  align-self: flex-end;
+}
+
+.cmd-run {
+  background-color: #22CF00;
+  color: black;
+}
+
+.cmd-run:hover {
+  background-color: #12872D;
+  color: white;
+}
+
+.cmd-run:focus {
+  background-color: #22CF00;
+  color: black;
+  box-shadow: none;
+}
