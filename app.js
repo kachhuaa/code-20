@@ -1,6 +1,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
+const codeExecuter = require("./scripts/code-executer.js");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   console.log(req.body);
+  codeExecuter.execute(__dirname, "temp", req.body.code, "compileAndRun");
 })
 
 app.listen(3000, (err) => {
