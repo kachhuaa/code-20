@@ -8,6 +8,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+app.use(express.static("public/lib/monaco-editor/package/dev"));
 
 app.get("/", (req, res) => {
   res.render("editor");
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   console.log(req.body);
   // codeExecuter.execute(__dirname, "temp", req.body.code, "compileAndRun");
-  res.redirect("/");
+  // res.redirect("/");
 })
 
 app.listen(3000, (err) => {
