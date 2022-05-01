@@ -15,7 +15,8 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   console.log(req.body);
-  codeExecuter.execute(__dirname, "temp", req.body.code, "compileAndRun");
+  // codeExecuter.execute(__dirname, "temp", req.body.code, "compileAndRun");
+  res.redirect("/");
 })
 
 app.listen(3000, (err) => {

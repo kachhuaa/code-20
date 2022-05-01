@@ -5,12 +5,20 @@ body,html {
   height: 100%;
   /* overflow: hidden; */
   background-color: #2D2D2A;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 .content {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100%
+  height: 100%;
+}
+
+.editor-form {
+  height: 100%;
+  width: 100%;
 }
 
 /* -----------------NAVBAR-------------------- */
@@ -24,7 +32,7 @@ body,html {
 
 .navbar {
   padding: 0;
-  flex: 0 1 auto;
+  box-sizing: border-box;
 }
 
 .container-fluid {
@@ -46,12 +54,12 @@ body,html {
   background-color: #2D2D2A;
 }
 
-.navbar-nav {
+/* .navbar-nav {
   margin-block-end: 0!important;
-}
+} */
 
 .dropdown-menu {
-  margin-block-start: 0!important;
+  /* margin-block-start: 0!important; */
   border: 0;
   border-radius: 0;
 }
@@ -63,18 +71,18 @@ body,html {
   width: 100vw;
 }
 
-.editor {
-  /* height: 100%;
-  width: 100%; */
+/* .editor {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
   resize: none;
   border: 0;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  flex: 0 1 auto;
-}
+} */
 
-.editor:focus {
+/* .editor:focus {
   border: 0;
   outline: 0;
 }
@@ -82,22 +90,32 @@ body,html {
 .editor:focus-visible {
   outline: 0;
   border: 0;
-}
+} */
 
 .CodeMirror {
-  /* width: 100%;
-  height: 100%; */
-  border: 0;
+  width: 100%;
+  height: 100%;
+  /* border: 0;
   margin: 0;
-  padding: 0;
+  padding: 0; */
   box-sizing: border-box;
   resize: none;
-  flex: 1 1 auto;
+}
+
+textarea {
+  background-color: #0E172A;
+  border: 0;
+  resize: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1.5rem;
+  bottom: 1.5rem;
 }
 
 .commands {
-  flex: 0 1 auto;
-  align-self: flex-end;
+  /* flex: 0 1 auto;
+  align-self: flex-end; */
 }
 
 .cmd-run {
@@ -114,4 +132,26 @@ body,html {
   background-color: #22CF00;
   color: black;
   box-shadow: none;
+}
+
+/* .container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-flow: row nowrap;
+} */
+
+.editor-container {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+.col-md {
+  padding: 0;
 }
