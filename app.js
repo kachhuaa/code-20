@@ -1,7 +1,18 @@
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-const codeExecuter = require("./scripts/code-executer.js");
+const codeExecuter = require("./scripts/code_executer.js");
+const fileOpener = require("./scripts/file_opener.js");
+//
+// fileOpener.getFileContent(["temp.cpp"]).then(
+//   (value) => {
+//     console.log(value);
+//   },
+//   (err) => {
+//     console.log(err);
+//   }
+// );
+
 
 const app = express();
 
@@ -11,14 +22,23 @@ app.use(express.static("public"));
 app.use(express.static("public/lib/monaco-editor/package/dev"));
 
 app.get("/", (req, res) => {
-  res.render("editor");
+  const filePaths = [ "temp.cpp", "in", "out" ];
+  fileOpener.getFileContent(filePaths).then(
+    (fileContent) => {
+      for (let i = 0; i < fileContent.length; i++) {
+        fileContent[i] = fileContent[i].replace(/\\/, '\\\\');
+      }
+      console.log(fileContent);
+      res.render("editor", { fileContent: fileContent });
+    }
+  );
 });
 
 app.post("/", (req, res) => {
   console.log(req.body);
-  // codeExecuter.execute(__dirname, "temp", req.body.code, "compileAndRun");
+  codeExecuter.execute(__dirname, "temp", "compileAndRun", req.body.codeMain, req.body.inputMain, req.body.outputMain).then(() => res.redirect("/"));
   // res.redirect("/");
-})
+});
 
 app.listen(3000, (err) => {
   if (err) {

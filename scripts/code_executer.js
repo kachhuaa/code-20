@@ -70,58 +70,70 @@ class Executer {
     });
   }
 
-  async run(filePath, fileName) {
+  run(filePath, fileName) {
     const fullPath = path.join(filePath, fileName);
 
-    try {
-      await fs.opendir(filePath);     // CHECK IF DIRECTORY EXISTS
-      await fs.readFile(fullPath);    // CHECK IF FILE EXISTS
+    return new Promise((resolve, reject) => {
+      try {
 
-      // RUN EXECUTABLE
-      const runCode = spawn(`./${fileName}`, {cwd: filePath});
-      runCode.stdout.on("data", (data) => {
-        console.log(data.toString());
-      });
-      runCode.stderr.on("data", (data) => {
-        console.log(`stderr: ${data.toString()}`);
-      });
-      runCode.on("error", (error) => {
-        console.log(`An error occurred!`);
-        console.log(error.message);
-      });
-      runCode.on("close", (code) => {
-        console.log(`Process exited with code ${code}.`);
-      });
+        fs.opendir(filePath)                        // CHECK IF DIRECTORY EXISTS
+          .then(() => fs.readFile(fullPath))       // CHECK IF FILE EXISTS
+          .then(() => {
+            // RUN EXECUTABLE
+            const runCode = spawn(`./${fileName}`, {cwd: filePath});
+            runCode.stdout.on("data", (data) => {
+              console.log(data.toString());
+            });
+            runCode.stderr.on("data", (data) => {
+              console.log(`stderr: ${data.toString()}`);
+            });
+            runCode.on("error", (error) => {
+              console.log(`An error occurred!`);
+              console.log(error.message);
+              reject();
+            });
+            runCode.on("close", (code) => {
+              console.log(`Process exited with code ${code}.`);
+              resolve();
+            });
 
-      // TERMINATE PROCESS IF IT TAKES TOO LONG
-      setTimeout(() => {
-        if (runCode.exitCode == null) {
-          runCode.kill();
-          console.log(`Program Execution took more than ${maxRunTime} seconds...`);
-          console.log(`Program Terminated!`);
-        }
-      }, 5000);
-    } catch (err) {
-      console.log(err);
-    }
+            // TERMINATE PROCESS IF IT TAKES TOO LONG
+            const maxRunTime = 5;
+            setTimeout(() => {
+              if (runCode.exitCode == null) {
+                runCode.kill();
+                console.log(`Program Execution took more than ${maxRunTime} seconds...`);
+                console.log(`Program Terminated!`);
+                reject();
+              }
+            }, maxRunTime * 1000);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    });
   }
 
-  compileAndRun(filePath, fileName, programCode) {
+  compileAndRun(filePath, fileName, programCode, resolve) {
     // COMPILE, THEN RUN
     this.compile(filePath, fileName, programCode).then(
       (value) => {
         value.obj.run(value.filePath, value.fileName);
       },
       () => {}
-    );
+    ).then(resolve);
   }
 
-  execute(filePath, fileName, programCode, command) {
+  execute(filePath, fileName, command, programCode) {
     // this.save(code);
+    const targetChar = new RegExp(String.fromCharCode(0x00A0), "g");  // non-breaking space
+    programCode = programCode.replace(targetChar, ' '); // replace by space
     if (command === "compile") {
       this.compile(filePath, fileName, programCode);
     } else if (command === "compileAndRun") {
-      this.compileAndRun(filePath, fileName, programCode);
+      return new Promise((resolve, reject) => {
+        this.compileAndRun(filePath, fileName, programCode, resolve);
+      });
     }
   }
 };

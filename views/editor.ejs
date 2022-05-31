@@ -18,7 +18,7 @@
       <div class="content w-100 container-fluid d-flex flex-column flex-wrap">
         <div class="row">
           <div class="col-md">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
               <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -86,7 +86,7 @@
                   </ul>
                 </div>
               </div>
-            </nav>
+            </nav> -->
           </div>
         </div>
 
@@ -123,6 +123,12 @@
       </div>
     </form>
 
+    <script type="text/javascript">
+      const contents = [];
+      <% for (content of fileContent) { %>
+        contents.push(`<%= content %>`);
+      <% } %>
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- <script src="./lib/codemirror/lib/codemirror.js" charset="utf-8"></script>

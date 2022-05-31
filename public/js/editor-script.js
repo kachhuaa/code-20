@@ -54,19 +54,58 @@
 // });
 
 const editors = [
-  { id: "code-main", handle: null, lang: "cpp"},
-  { id: "input-main", handle: null, lang: "plaintext"},
-  { id: "output-main", handle: null, lang: "plaintext" }
+  { id: "code-main", handle: null, lang: "cpp", fileName: "temp" },
+  { id: "input-main", handle: null, lang: "plaintext", fileName: "in" },
+  { id: "output-main", handle: null, lang: "plaintext", fileName: "out" }
 ];
 
 console.log(monaco);
-editors.forEach((editor) => {
-  editor.handle = monaco.editor.create(document.getElementById(`${editor.id}-container`), {
-    value: "",
-    language: editor.lang
+console.log(contents);
+
+function escapeHtml(text) {
+  var map = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#039;': "'",
+    '&#34;': '"'
+  };
+
+  let rexp = '';
+  for (key in map) {
+    if (rexp !== '')
+      rexp = rexp + '|';
+    rexp = rexp + key;
+  }
+  rexp = new RegExp(rexp, 'g');
+  // console.log(rexp);
+
+  text = text.replace(rexp, function(match, capGroup, offset, str) {
+    return map[match];
   });
-  $(`#${editor.id}-container > .monaco-editor`).attr("id", editor.id);
-});
+
+  return text;
+}
+
+for (let i = 0; i < contents.length; i++) {
+  contents[i] = escapeHtml(contents[i]);
+}
+
+for (let i = 0; i < editors.length; i++) {
+  editors[i].handle = monaco.editor.create(document.getElementById(`${editors[i].id}-container`), {
+    value: contents[i],
+    language: editors[i].lang
+  });
+  $(`#${editors[i].id}-container > .monaco-editor`).attr("id", editors[i].id);
+}
+// editors.forEach((editor) => {
+//   editor.handle = monaco.editor.create(document.getElementById(`${editor.id}-container`), {
+//     value: "",
+//     language: editor.lang
+//   });
+//   $(`#${editor.id}-container > .monaco-editor`).attr("id", editor.id);
+// });
 
 console.log(editors[0].handle);
 
