@@ -21,13 +21,17 @@ class Executer {
     ];
   }
 
-  compile(filePath, fileName, programCode) {
+  compile(filePath, fileName, programCode, programInput, programOutput) {
     const obj = this;
     return new Promise((resolve, reject) => {
       const fullPath = path.join(filePath, fileName);
 
       // SAVE CODE TO FILE
-      const writePromise = fs.writeFile(`${fullPath}.cpp`, programCode, {encoding: "utf8"});
+      const writePromise = 
+        fs.writeFile(`${fullPath}.cpp`, programCode, {encoding: "utf8"})
+        .then(() => fs.writeFile(`${path.join(filePath, "in")}`, programInput, {encoding: "utf8"}))
+        .then(() => fs.writeFile(`${path.join(filePath, "out")}`, programOutput, {encoding: "utf8"}));
+
       writePromise.then(function(_) {
         // ADD SOURCE FILE AND NAME OF OBJECT FILE TO ARGS
         const args = obj.args.slice();
@@ -114,12 +118,13 @@ class Executer {
     });
   }
 
-  compileAndRun(filePath, fileName, programCode) {
+  compileAndRun(filePath, fileName, programCode, programInput, programOutput) {
     // COMPILE, THEN RUN
-    return this.compile(filePath, fileName, programCode).then(
+    return this.compile(filePath, fileName, programCode, programInput, programOutput).then(
       (value) => {
         return value.obj.run(value.filePath, value.fileName);
-      }
+      },
+      () => { throw "Compilation Failed!"}
     );
   }
 
@@ -128,9 +133,9 @@ class Executer {
     const targetChar = new RegExp(String.fromCharCode(0x00A0), "g");  // non-breaking space
     programCode = programCode.replace(targetChar, ' '); // replace by space
     if (command === "compile") {
-      return this.compile(filePath, fileName, programCode);
+      return this.compile(filePath, fileName, programCode, programInput, programOutput);
     } else if (command === "compileAndRun") {
-      return this.compileAndRun(filePath, fileName, programCode);
+      return this.compileAndRun(filePath, fileName, programCode, programInput, programOutput);
     }
   }
 };

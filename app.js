@@ -38,7 +38,7 @@ app.post("/", (req, res) => {
   console.log(req.body);
   codeExecuter
     .execute(__dirname, "temp", req.body.cmdName, req.body.codeMain, req.body.inputMain, req.body.outputMain)
-    .then(() => res.redirect("/"));
+    .then(() => res.redirect("/"), () => res.redirect("/"));
   // res.redirect("/");
 });
 
