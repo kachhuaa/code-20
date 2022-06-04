@@ -98,7 +98,7 @@ class Executer {
             });
 
             // TERMINATE PROCESS IF IT TAKES TOO LONG
-            const maxRunTime = 5;
+            const maxRunTime = 10;
             setTimeout(() => {
               if (runCode.exitCode == null) {
                 runCode.kill();
@@ -114,26 +114,23 @@ class Executer {
     });
   }
 
-  compileAndRun(filePath, fileName, programCode, resolve) {
+  compileAndRun(filePath, fileName, programCode) {
     // COMPILE, THEN RUN
-    this.compile(filePath, fileName, programCode).then(
+    return this.compile(filePath, fileName, programCode).then(
       (value) => {
-        value.obj.run(value.filePath, value.fileName);
-      },
-      () => {}
-    ).then(resolve);
+        return value.obj.run(value.filePath, value.fileName);
+      }
+    );
   }
 
-  execute(filePath, fileName, command, programCode) {
+  execute(filePath, fileName, command, programCode, programInput, programOutput) {
     // this.save(code);
     const targetChar = new RegExp(String.fromCharCode(0x00A0), "g");  // non-breaking space
     programCode = programCode.replace(targetChar, ' '); // replace by space
     if (command === "compile") {
-      this.compile(filePath, fileName, programCode);
+      return this.compile(filePath, fileName, programCode);
     } else if (command === "compileAndRun") {
-      return new Promise((resolve, reject) => {
-        this.compileAndRun(filePath, fileName, programCode, resolve);
-      });
+      return this.compileAndRun(filePath, fileName, programCode);
     }
   }
 };

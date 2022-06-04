@@ -16,9 +16,9 @@
   <body>
     <form class="editor-form w-100" action="/" method="post">
       <div class="content w-100 container-fluid d-flex flex-column flex-wrap">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md">
-            <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
               <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -86,9 +86,9 @@
                   </ul>
                 </div>
               </div>
-            </nav> -->
+            </nav>
           </div>
-        </div>
+        </div> -->
 
         <!-- <div class="code"></div> -->
 
@@ -113,12 +113,12 @@
             </div>
           </div>
 
-          <div class="btn-group commands w-50 align-items-end" role="group" aria-label="Commands">
-            <button type="button" name="cmd" value="stress" class="mw-10 btn btn-primary cmd cmd-stress">Stress</button>
-            <button type="button" name="cmd" value="interact" class="mw-10 btn btn-primary cmd cmd-interact">Interact</button>
+          <div class="btn-group commands d-flex w-50 align-self-end" role="group" aria-label="Commands">
+            <!-- <button type="button" name="cmd" value="stress" class="mw-10 btn btn-primary cmd cmd-stress">Stress</button> -->
+            <!-- <button type="button" name="cmd" value="interact" class="mw-10 btn btn-primary cmd cmd-interact">Interact</button> -->
             <button type="button" name="cmd" value="compile" class="mw-10 btn btn-primary cmd cmd-compile">Compile</button>
-            <button type="button" name="cmd" value="run" class="mw-10 btn btn-primary cmd cmd-run">Run</button>
-            <button type="submit" name="submit" id="submit-btn" class="submit-btn"></button>
+            <button type="button" name="cmd" value="compileAndRun" class="mw-10 btn btn-primary cmd cmd-run">Run</button>
+            <button type="submit" name="cmdName" id="submit-btn" class="submit-btn"></button>
           </div>
       </div>
     </form>

@@ -59,8 +59,8 @@ const editors = [
   { id: "output-main", handle: null, lang: "plaintext", fileName: "out" }
 ];
 
-console.log(monaco);
-console.log(contents);
+// console.log(monaco);
+// console.log(contents);
 
 function escapeHtml(text) {
   var map = {
@@ -68,7 +68,7 @@ function escapeHtml(text) {
     '&lt;': '<',
     '&gt;': '>',
     '&quot;': '"',
-    '&#039;': "'",
+    '&#39;': "'",
     '&#34;': '"'
   };
 
@@ -107,7 +107,7 @@ for (let i = 0; i < editors.length; i++) {
 //   $(`#${editor.id}-container > .monaco-editor`).attr("id", editor.id);
 // });
 
-console.log(editors[0].handle);
+// console.log(editors[0].handle);
 
 /*
 children
@@ -136,6 +136,8 @@ $(".cmd").click(function(evt) {
     $(`#${editor.id}-placeholder`).val(codeLines.join("\n"));
       // console.log(line.textContent);
   });
+  console.log($(`#${editors[0].id} div.overflow-guard div.monaco-scrollable-element.editor-scrollable.vs div.lines-content.monaco-editor-background div.view-lines.monaco-mouse-cursor-text`)
+  .children());
   $("#submit-btn").val(evt.target.value).trigger("click");
 })
 

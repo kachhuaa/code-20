@@ -36,7 +36,9 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   console.log(req.body);
-  codeExecuter.execute(__dirname, "temp", "compileAndRun", req.body.codeMain, req.body.inputMain, req.body.outputMain).then(() => res.redirect("/"));
+  codeExecuter
+    .execute(__dirname, "temp", req.body.cmdName, req.body.codeMain, req.body.inputMain, req.body.outputMain)
+    .then(() => res.redirect("/"));
   // res.redirect("/");
 });
 
